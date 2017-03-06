@@ -14,6 +14,8 @@ deployment:
   production:
     branch: master
     commands:
+      - docker rmi $(docker images -aq)
+      - docker rm $(docker ps -aq)
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - chmod +x deploy.sh
       - ./deploy.sh
