@@ -4,18 +4,16 @@ machine:
 
 dependencies:
   override:
-    - docker build -t kostyaurysov/sample-node .
+    - docker build -t somal/sample-node .
 
 test:
   override:
-    - docker run kostyaurysov/sample-node npm test
+    - docker run somal/sample-node npm test
 
 deployment:
   production:
     branch: master
     commands:
-      - docker rmi $(docker images -aq)
-      - docker rm $(docker ps -aq)
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - chmod +x deploy.sh
       - ./deploy.sh
